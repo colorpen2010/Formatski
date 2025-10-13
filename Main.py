@@ -1,5 +1,4 @@
 import random
-
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton
 from PySide6.QtGui import QPixmap, QCursor
 from PySide6.QtMultimedia import QSoundEffect, QMediaPlayer
