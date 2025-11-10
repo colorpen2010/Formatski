@@ -1,7 +1,7 @@
 import random
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton,QGraphicsScene, QWidget
 from PySide6.QtGui import QPen, QStandardItemModel,QStandardItem
-from PySide6.QtCore import  QUrl,QStringListModel,Qt,QLineF,QRect, QPoint
+from PySide6.QtCore import  QUrl,QStringListModel,Qt,QLineF,QRect, QModelIndex
 from forms_2 import Ui_MainWindow
 from ui_building_menu import  Ui_Form
 
@@ -51,16 +51,31 @@ def building_menu():
     f.show()
 
 
-def on_row_selected(current):
+def on_row_selected(current:QModelIndex):
+    if not current.isValid():
+        return
     row = current.row()
     name = z.item(row, 0)
     x = z.item(row, 1)
     y = z.item(row, 2)
-    print(name.text())
     t.lineEdit.setText(name.text())
     t.spinBox.setValue(int(x.text()))
     t.spinBox_2.setValue(int(y.text()))
+def data_change(type):
+    """
+    :param type: в type лежит тип изменяемого объекта, пример: name,x,y.
+    """
+    index=t.tableView.currentIndex()
+    if type=='name':
+        z.setItem(index.row(),0,QStandardItem(t.lineEdit.text()))
+    if type=='x':
+        z.setItem(index.row(),1,QStandardItem(str(t.spinBox.value())))
+    if type == 'y':
+        z.setItem(index.row(),2,QStandardItem(str(t.spinBox_2.value())))
 
+def row_killer():
+    index = t.tableView.currentIndex()
+    z.removeRow(index.row())
 
 w.setColor("red")
 
@@ -74,6 +89,13 @@ t.tableView.setEditTriggers(t.tableView.EditTrigger.NoEditTriggers)
 t.tableView.setModel(z)
 
 t.tableView.selectionModel().currentChanged.connect(on_row_selected)
+
+t.add_new.clicked.connect(lambda: row_adder('none','0','0'))
+t.delete_button.clicked.connect(row_killer)
+
+t.lineEdit.textChanged.connect(lambda: data_change("name"))
+t.spinBox.textChanged.connect(lambda: data_change("x"))
+t.spinBox_2.textChanged.connect(lambda: data_change("y"))
 
 s.graphicsView.setScene(r)
 for b in rects:

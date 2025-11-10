@@ -45,9 +45,12 @@ class Ui_Form(object):
         self.label_3 = QLabel(Form)
         self.label_3.setObjectName(u"label_3")
         self.label_3.setGeometry(QRect(30, 110, 41, 20))
-        self.pushButton = QPushButton(Form)
-        self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.setGeometry(QRect(210, 400, 75, 24))
+        self.add_new = QPushButton(Form)
+        self.add_new.setObjectName(u"add_new")
+        self.add_new.setGeometry(QRect(210, 400, 75, 24))
+        self.delete_button = QPushButton(Form)
+        self.delete_button.setObjectName(u"delete_button")
+        self.delete_button.setGeometry(QRect(290, 400, 75, 24))
 
         self.retranslateUi(Form)
 
@@ -59,6 +62,7 @@ class Ui_Form(object):
         self.label.setText(QCoreApplication.translate("Form", u"X", None))
         self.label_2.setText(QCoreApplication.translate("Form", u"Y", None))
         self.label_3.setText(QCoreApplication.translate("Form", u"Name", None))
-        self.pushButton.setText(QCoreApplication.translate("Form", u"Add new", None))
+        self.add_new.setText(QCoreApplication.translate("Form", u"Add new", None))
+        self.delete_button.setText(QCoreApplication.translate("Form", u"delete", None))
     # retranslateUi
 
